@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<DataTypes>
+  <SQLDataType name="bigint" CSharpType="long" VBType="Long" JavaType="" DotNetType="System.Int64" LanguageSpecificType="number" CalculateLength="false"/>
+  <SQLDataType name="int" CSharpType="int" VBType="Integer" JavaType="" DotNetType="System.Int32" LanguageSpecificType="number" CalculateLength="false"/>
+  <SQLDataType name="char" CSharpType="string" VBType="String" JavaType="" DotNetType="" LanguageSpecificType="string" CalculateLength="true"/>
+  <SQLDataType name="bit" CSharpType="bool" VBType="Boolean" JavaType="" DotNetType="" LanguageSpecificType="boolean" CalculateLength="false"/>
+  <SQLDataType name="datetime" CSharpType="DateTime" VBType="DateTime" JavaType="" DotNetType="" LanguageSpecificType="DateTime" CalculateLength="false"/>
+  <SQLDataType name="date" CSharpType="DateTime" VBType="DateTime" JavaType="" DotNetType="" LanguageSpecificType="DateTime" CalculateLength="false"/>
+  <SQLDataType name="decimal" CSharpType="decimal" VBType="Decimal" JavaType="" DotNetType="" LanguageSpecificType="number" CalculateLength="true"/>
+
+  <SQLDataType name="image" CSharpType="byte[]" VBType="Byte()" JavaType="" DotNetType="" LanguageSpecificType="any[]" CalculateLength="false"/>
+  <SQLDataType name="money" CSharpType="decimal" VBType="Decimal" JavaType="" DotNetType="" LanguageSpecificType="number" CalculateLength="false"/>
+  <SQLDataType name="nchar" CSharpType="string" VBType="String" JavaType="" DotNetType="" LanguageSpecificType="string" CalculateLength="true"/>
+  <SQLDataType name="ntext" CSharpType="string" VBType="String" JavaType="" DotNetType="" LanguageSpecificType="string" CalculateLength="false"/>
+  <SQLDataType name="number" CSharpType="double" VBType="Double" JavaType="" DotNetType="" LanguageSpecificType="number" CalculateLength="true"/>
+
+  <SQLDataType name="numeric" CSharpType="int" VBType="Integer" JavaType="" DotNetType="" LanguageSpecificType="number" CalculateLength="false"/>
+  <SQLDataType name="nvarchar" CSharpType="string" VBType="String" JavaType="" DotNetType="" LanguageSpecificType="string" CalculateLength="true"/>
+  <SQLDataType name="smallint" CSharpType="short" VBType="Short" JavaType="" DotNetType="" LanguageSpecificType="number" CalculateLength="false"/>
+  <SQLDataType name="text" CSharpType="string" VBType="String" JavaType="" DotNetType="" LanguageSpecificType="string" CalculateLength="false"/>
+
+  <SQLDataType name="tinyint" CSharpType="short" VBType="Short" JavaType="" DotNetType="" LanguageSpecificType="number" CalculateLength="false"/>
+  <SQLDataType name="varchar" CSharpType="string" VBType="String" JavaType="" DotNetType="" LanguageSpecificType="string" CalculateLength="true" />
+  
+</DataTypes>

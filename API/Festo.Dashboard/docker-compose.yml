@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  festo.dashboard.api:
+    image: ${DOCKER_REGISTRY}festodashboardapi
+    build:
+      context: .
+      dockerfile: Festo.Dashboard.Api\Dockerfile

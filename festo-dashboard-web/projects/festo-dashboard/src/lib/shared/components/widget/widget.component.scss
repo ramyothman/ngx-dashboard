@@ -1,0 +1,188 @@
+festo-widget {
+  display: block;
+  position: relative;
+  perspective: 3000px;
+  // padding: 12px;
+  height: 99%;
+  > div {
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 1s;
+  }
+
+  .widget-selected {
+    border: 2px solid #0091DC;
+    box-shadow: 0 0 10px #9ecaed;
+  }
+
+  > .festo-widget-front {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      position: relative;
+      visibility: visible;
+      width: 100%;
+      opacity: 1;
+      z-index: 10;
+      border-radius: 2px;
+      transition: transform 0.5s ease-out 0s, visibility 0s ease-in 0.2s, opacity 0s ease-in 0.2s;
+      transform: rotateY(0deg);
+      height: 100%;
+      backface-visibility: hidden;
+
+      .front-header {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .front-content {
+        padding-left: 8px;
+        padding-right: 8px;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+      }
+  }
+  > .festo-widget-back {
+      display: block;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      visibility: hidden;
+      opacity: 0;
+      z-index: 10;
+      transition: transform 0.5s ease-out 0s, visibility 0s ease-in 0.2s, opacity 0s ease-in 0.2s;
+      transform: rotateY(180deg);
+      backface-visibility: hidden;
+
+      .widget-back-container {
+        position: relative;
+        padding-left: 0;
+
+      }
+      .back-header {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .back-content {
+        padding-left: 8px;
+        padding-right: 8px;
+      }
+      [festoWidgetToggle] {
+          position: absolute;
+          top: 0;
+          right: 0;
+      }
+  }
+
+  &.flipped {
+
+      > .festo-widget-front {
+          visibility: hidden;
+          opacity: 0;
+          transform: rotateY(180deg);
+      }
+
+      > .festo-widget-back {
+          display: block;
+          visibility: visible;
+          opacity: 1;
+          transform: rotateY(360deg);
+      }
+  }
+
+  .form-field {
+
+      &.form-field-type-select {
+
+          .form-field-wrapper {
+              padding: 16px 0;
+
+              .form-field-infix {
+                  border: none;
+                  padding: 0;
+              }
+          }
+
+          .form-field-underline {
+              display: none;
+          }
+      }
+  }
+
+  .border-bottom {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  .widget-handle {
+    position: absolute;
+    left: 12px;
+    color: #DDDDDD;
+    &:hover {
+      color: #212121;
+      cursor: grab;
+    }
+  }
+
+  .header-title {
+    padding-left: 30px;
+  }
+
+  .festo-widget-flip-button {
+    padding: 0 8px;
+    background-color: transparent;
+    &:hover {
+      background-color: #0091DC;
+      border: 1px solid #DDDDDD;
+      color: #fff;
+    }
+    &.btn:focus {
+
+    }
+    &:focus {
+      box-shadow: none;
+    }
+    &.circle {
+      border-radius: 50%;
+    }
+  }
+}
+
+.form-widget-setttings {
+  font-family: 'Segoe UI Semibold',wf_segoe-ui_semibold,helvetica,arial,sans-serif;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  .form-field {
+    .labelEdit {
+      color: #333;
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .editorEdit {
+      input {
+        width: 100%;
+        font-weight: normal;
+        font-size: 14px;
+        padding: 8px;
+        font: 100 14px helvetica,arial,sans-serif;
+        color: #444;
+      }
+
+      input[type=text] {
+        border: 2px solid #c8c8c8;
+      }
+    }
+
+
+  }
+}

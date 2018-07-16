@@ -1,0 +1,61 @@
+<festo-widget [@animate]="{value:'*',params:{y:'100%'}}" class="widget" [(widget)]="widget" data-widget-settings="festo-dashboard-sidebar" (clickOutside)="close()">
+  <!-- Front -->
+  <div class="festo-widget-front white-bg elevation-z2" [class.widget-selected]="widget.selected">
+    <div class="front-header row border-bottom" (click)="onWidgetSelected()">
+      <div class="header-title col col-md-8">
+          <div class="widget-handle">
+              <fa-icon icon="grip-vertical"></fa-icon>
+          </div>
+        <span *ngIf="widget.showTitleIn === 'widget' || widget.showTitleIn === 'both'">{{widget.widgetOptions.title.text | shorten: 28: '...'}}</span>
+      </div>
+      <div class="col col-md-4">
+          <div class="dropdown dropleft" id="widgetDropDown{{widget.id}}">
+              <button  class="btn float-right festo-widget-flip-button circle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" (click)="toggleSettingsDropDown()">
+                  <fa-icon icon="ellipsis-v"></fa-icon>
+              </button>
+              <div class="dropdown-menu"  aria-labelledby="dropdownMenuButton">
+                <a festoWidgetToggle class="dropdown-item" (click)="toggleSettingsDropDown()"><fa-icon icon="window-restore"></fa-icon> Details</a>
+                <a class="dropdown-item" (click)="onOpenEdit()"><fa-icon icon="edit"></fa-icon> Edit</a>
+                <a class="dropdown-item" (click)="onRemoveWidget()"><fa-icon icon="trash-alt"></fa-icon> Remove</a>
+              </div>
+            </div>
+
+      </div>
+
+    </div>
+
+    <div class="front-content">
+      <festo-widget-chart [widget]="widget"></festo-widget-chart>
+      <ng-content select="widget-body"></ng-content>
+    </div>
+
+    <div class="grey-50-bg border-top widget-footer">
+      <ng-content select="widget-footer"></ng-content>
+    </div>
+  </div>
+  <!-- / Front -->
+
+  <!-- Back -->
+  <div class="festo-widget-back white-bg elevation-z2 " [class.widget-selected]="widget.selected">
+    <div class="widget-back-container container">
+      <div class="back-header row border-bottom" (click)="onWidgetSelected()">
+        <div class="header-title col col-md-8">
+            <div class="widget-handle">
+                <fa-icon icon="grip-vertical"></fa-icon>
+            </div>
+            {{widget.title}} Details
+        </div>
+        <div class="col col-md-4">
+          <button festoWidgetToggle class="festo-widget-flip-button btn float-right circle" aria-label="Flip widget">
+              <fa-icon icon="times"></fa-icon>
+          </button>
+        </div>
+      </div>
+      <div  class="back-content">
+        <ng-content select="widget-details"></ng-content>
+      </div>
+    </div>
+  </div>
+  <!-- / Back -->
+
+</festo-widget>

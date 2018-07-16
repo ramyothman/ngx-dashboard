@@ -1,0 +1,14 @@
+.dashbaord-source-content{
+    height: 400px;
+}
+.selected-data-sources {
+  .ui-state-highlight {
+    background: transparent !important;
+    color: #212529;
+    &:hover {
+      border-color: #c0c0c0 !important;
+      background-color: #eeeeee !important;
+      color: #212121;
+    }
+  }
+}

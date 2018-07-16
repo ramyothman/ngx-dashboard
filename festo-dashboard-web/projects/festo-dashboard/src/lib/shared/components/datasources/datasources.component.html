@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col col-md-4">
+      <p-listbox [options]="connections$ | async | filter:'selected':true" [(ngModel)]="selectedConnection" [style]="{'width':'100%'}" [listStyle]="{'max-height':'300px'}" [ngModelOptions]="{standalone: true}" optionLabel="title"></p-listbox>
+    </div>
+    <div class="col col-md-8">
+        <p-listbox [options]="selectedConnection?.dataSources | filter:'selected':true" [(ngModel)]="selectedSource" [style]="{'width':'100%'}" [listStyle]="{'max-height':'300px'}" [ngModelOptions]="{standalone: true}" optionLabel="name"></p-listbox>
+    </div>
+  </div>
+</div>

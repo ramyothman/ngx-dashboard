@@ -1,0 +1,55 @@
+.white-bg {
+  background-color: #fff !important;
+  border-bottom: 2px solid #f4f4f4;
+}
+
+.dashboard-panel-title{
+  font-weight: 400;
+  font-size: 21px;
+  color: #333;
+}
+
+.dashboard-panel-subtitle{
+  font-size: 10px;
+  font-style: italic;
+}
+
+.settings-container {
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+  height: 100%;
+  .settings-header {
+    flex: 0 1 auto;
+  }
+  .settings-content {
+    flex: 1 1 auto;
+    overflow: auto;
+  }
+  .settings-footer {
+    flex: 0 1 60px;
+    background-color: #fff;
+    padding: 10px;
+    .btn-settings-control {
+      margin-left: 10px;
+      width: 125px;
+    }
+  }
+}
+
+// .settings-footer {
+//   position: relative;
+//   .bottom-commands {
+//     font-size: 14px;
+//     color: #333;
+//     background-color: #fff;
+//     flex: 0 0 auto;
+//     min-width: 0;
+//     padding: 0 28px;
+//     position: absolute;
+//     height: 100px;
+//     width: 312px;
+//     bottom: 0;
+//   }
+// }
+

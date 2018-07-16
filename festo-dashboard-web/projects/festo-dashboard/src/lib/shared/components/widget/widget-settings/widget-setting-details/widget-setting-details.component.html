@@ -1,0 +1,25 @@
+<div class="form-widget-setttings" *ngIf="widget">
+  <div class="row form-field">
+    <div class="labelEdit col col-md-12">Title</div>
+    <div class="editorEdit col col-md-12">
+      <input [(ngModel)]="widget.widgetOptions.title.text">
+    </div>
+  </div>
+  <div class="row form-field">
+    <div class="labelEdit col col-md-12">Sub Title</div>
+    <div class="editorEdit col col-md-12">
+      <input [(ngModel)]="widget.widgetOptions.title.subtext">
+    </div>
+  </div>
+  <div class="row form-field">
+      <div class="labelEdit col col-md-12">Show Title in </div>
+      <div class="editorEdit col col-md-12">
+        <select [(ngModel)]="titleDisplay">
+          <option value="both">Widget and Chart</option>
+          <option value="widget">Widget</option>
+          <option value="chart">Chart</option>
+          <option value="none">Don't Show</option>
+        </select>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="row">
+  <div class="col col-md-12">
+    <mat-horizontal-stepper [linear]="true" #stepper class="dashboard-connection">
+      <mat-step [stepControl]="connectionFormGroup">
+        <form [formGroup]="connectionFormGroup">
+          <ng-template matStepLabel>Select Connection</ng-template>
+          <div class="container-fluid dashbaord-source-content">
+            <div class="row">
+              <div class="col col-md-12">
+                <p-listbox [options]="connections$ | async" [(ngModel)]="selectedConnection" [style]="{'width':'100%'}" [listStyle]="{'max-height':'300px'}" [ngModelOptions]="{standalone: true}" optionLabel="title"></p-listbox>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="next(stepper, DATASOURCE_ACTIONS.LOAD_DATASOURCES)">Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="dataSourceFormGroup">
+        <form [formGroup]="dataSourceFormGroup">
+          <ng-template matStepLabel>Select Source</ng-template>
+          <div class="container-fluid dashbaord-source-content">
+            <div class="row">
+              <div class="col col-md-12">
+                <p-selectButton [options]="sourceTypes" [(ngModel)]="sourceType" [ngModelOptions]="{standalone: true}"></p-selectButton>
+                <p-listbox [options]="selectedConnection?.dataSources | filter:'sourceType':sourceType" [style]="{'width':'100%'}" [listStyle]="{'max-height':'300px'}"
+                  multiple="multiple" checkbox="checkbox" filter="filter" [(ngModel)]="selectedSources" [ngModelOptions]="{standalone: true}"
+                  optionLabel="name"></p-listbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" matStepperPrevious>Back</button>
+            <button type="button" class="btn btn-primary" (click)="next(stepper, 'complete')">Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Complete</ng-template>
+        <div class="container-fluid dashbaord-source-content">
+          <div class="row">
+            <div class="col col-md-12">
+              You have selected <b>{{selectedConnection?.title}}</b> Connection with the below sources:
+              <p-listbox [options]="selectedSources" class="selected-data-sources" [style]="{'width':'100%'}" readonly="true" [listStyle]="{'max-height':'300px'}" filter="filter">
+                <ng-template let-source let-i="index" pTemplate="item">
+                  <div class="ui-helper-clearfix ">
+                      <span>{{source.name}} ({{source.sourceType}})</span>
+                  </div>
+              </ng-template>
+              </p-listbox>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" matStepperPrevious>Back</button>
+          <button type="button" class="btn btn-primary" (click)="next(stepper, 'finalize')">Finish</button>
+        </div>
+        <!-- <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div> -->
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</div>
