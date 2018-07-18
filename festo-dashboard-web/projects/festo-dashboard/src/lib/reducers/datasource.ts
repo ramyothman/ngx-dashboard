@@ -1,14 +1,16 @@
+
 import { plainToClassFromExist, plainToClass } from 'class-transformer';
 import { DataSourceConnection } from './../models/datasources/data-source-connection';
 import { DataSource } from './../models/datasources/data-source';
 import { Column } from './../models/datasources/column';
 import { ApiCountResponse } from './../services/models/api-count-response';
 import { ApiPaginateResponse } from './../services/models/api-paginate-response';
-import { createSelector, createFeatureSelector } from '@ngrx/store';
+import { createSelector, createFeatureSelector, defaultMemoize } from '@ngrx/store';
 
 import * as fromRoot from './index';
 import * as dataSourceActions from './../actions/datasource.action';
 import { DATASOURCE_ACTIONS } from './../actions/datasource.action';
+
 
 export interface DataSourceConnectionState {
   loading: boolean;
@@ -292,3 +294,15 @@ function loadDataSourceDataSuccessReducer(
 }
 export const getDataSourceConnectionState = createFeatureSelector<DataSourceConnectionState>('datasource');
 export const getConnections = createSelector(getDataSourceConnectionState, (state: DataSourceConnectionState) => state.connectionStates);
+export const getDataSource = (source: any) => createSelector(getConnections, (connections) => {
+  if (connections) {
+    const conn = connections.find(item => item.id === source.connectionId);
+    if (conn) {
+      return conn.dataSources.find(item => item.id === source.id);
+    } else {
+      return null;
+    }
+  } else {
+    return null;
+  }
+});

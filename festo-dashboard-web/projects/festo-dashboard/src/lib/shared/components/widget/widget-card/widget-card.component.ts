@@ -1,3 +1,4 @@
+import { DataSourceConnection } from './../../../../models/datasources/data-source-connection';
 import { getWidgetState } from './../../../../reducers/index';
 import { Widget } from './../../../../models/widget';
 import { dashboardAnimations } from './../../../../shared/animations';
@@ -11,13 +12,19 @@ import { AfterContentInit,
   QueryList,
   Renderer2,
   ViewEncapsulation,
-  Input} from '@angular/core';
+  Input,
+  OnInit} from '@angular/core';
 import { FestoWidgetToggleDirective } from './../widget-toggle.directive';
 import * as widgetActions from './../../../../actions/widget.action';
 import * as fromWidget from './../../../../reducers/widget';
 import { Store, select } from '@ngrx/store';
 import { NgxEchartsService } from 'ngx-echarts';
 import { Observable, BehaviorSubject } from 'rxjs';
+import { WidgetService } from '../../../../services/widget.service';
+import { DataSource } from '../../../../models/datasources/data-source';
+import * as datasourceActions from './../../../../actions/datasource.action';
+import * as fromDataSource from './../../../../reducers/datasource';
+
 declare var $: any;
 @Component({
   selector     : 'festo-widget-card',
@@ -26,7 +33,7 @@ declare var $: any;
   animations   : dashboardAnimations
 })
 
-export class FestoWidgetCardComponent  {
+export class FestoWidgetCardComponent implements OnInit {
 
   @Input() widget: Widget;
   @Input() selectedWidget: Widget;
@@ -42,8 +49,13 @@ export class FestoWidgetCardComponent  {
     constructor(
       private store: Store<fromWidget.WidgetState>,
       private cd: ChangeDetectorRef,
-      private nes: NgxEchartsService
+      private nes: NgxEchartsService,
+      private widgetService: WidgetService
   ) {
+
+  }
+
+  ngOnInit(): void {
 
   }
 

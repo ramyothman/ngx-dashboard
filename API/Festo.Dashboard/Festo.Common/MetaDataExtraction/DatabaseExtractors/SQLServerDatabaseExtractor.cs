@@ -116,25 +116,25 @@ namespace Festo.Common.MetaDataExtraction.DatabaseExtractors
 
                 //Extracting the HTML display information from the column description
                 System.Data.DataTable displayInfo = new DataTable();
-                string _query = String.Format("select sep.value[Description] from {0}sys.tables st inner join {0}sys.columns sc on st.object_id = sc.object_id left join {0}sys.extended_properties sep on st.object_id = sep.major_id and sc.column_id = sep.minor_id and sep.name = 'MS_Description' where st.name = '{1}' and sc.name='{2}'", table.ParentDatabase.NameForQuery, table.Name, col.Name);  
-                displayInfo.Load(table.ParentDatabase.ParentProject.ExtractorManager.SelectStatement(_query), LoadOption.OverwriteChanges);
-                DataRow[] off = displayInfo.Select(String.Format("1=1"));
-                string des = off[0].ItemArray[0].ToString();
-                col.DisplayType = "";
-                if (des.Contains("field"))
-                {
-                    col.DisplayType = "field";
-                    des = des.Replace("field ", "");
-                    col.DisplayOrder = int.Parse(des.Split(',')[0]);
-                    col.ColSpan = int.Parse(des.Split(',')[1]);
-                    col.NewGroup = int.Parse(des.Split(',')[2]) == 1 ? true : false;
-                    col.NewRow = int.Parse(des.Split(',')[3]) == 1 ? true : false;
-                }
-                else
-                {
-                    col.DisplayType = des;
-                    col.DisplayOrder = 0;
-                }
+                //string _query = String.Format("select sep.value[Description] from {0}sys.tables st inner join {0}sys.columns sc on st.object_id = sc.object_id left join {0}sys.extended_properties sep on st.object_id = sep.major_id and sc.column_id = sep.minor_id and sep.name = 'MS_Description' where st.name = '{1}' and sc.name='{2}'", table.ParentDatabase.NameForQuery, table.Name, col.Name);  
+                //displayInfo.Load(table.ParentDatabase.ParentProject.ExtractorManager.SelectStatement(_query), LoadOption.OverwriteChanges);
+                //DataRow[] off = displayInfo.Select(String.Format("1=1"));
+                //string des = off[0].ItemArray[0].ToString();
+                //col.DisplayType = "";
+                //if (des.Contains("field"))
+                //{
+                //    col.DisplayType = "field";
+                //    des = des.Replace("field ", "");
+                //    col.DisplayOrder = int.Parse(des.Split(',')[0]);
+                //    col.ColSpan = int.Parse(des.Split(',')[1]);
+                //    col.NewGroup = int.Parse(des.Split(',')[2]) == 1 ? true : false;
+                //    col.NewRow = int.Parse(des.Split(',')[3]) == 1 ? true : false;
+                //}
+                //else
+                //{
+                //    col.DisplayType = des;
+                //    col.DisplayOrder = 0;
+                //}
 
                 col.OrdinalPosition = Convert.ToInt32(row["Ordinal_Position"]);
                 if (row["Is_Nullable"].ToString().ToLower() == "yes")

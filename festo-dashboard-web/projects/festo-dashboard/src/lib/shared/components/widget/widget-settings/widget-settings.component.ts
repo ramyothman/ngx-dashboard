@@ -1,3 +1,5 @@
+import { DataSourceService } from './../../../../services/datasource.service';
+import { DataSourceConnection } from './../../../../models/datasources/data-source-connection';
 import { WidgetService } from './../../../../services/widget.service';
 import { ModelService } from './../../../../services/model.service';
 import { getWidgetState } from './../../../../reducers/index';
@@ -22,7 +24,9 @@ import * as fromWidget from './../../../../reducers/widget';
 import { Store, select } from '@ngrx/store';
 import { NgxEchartsService } from 'ngx-echarts';
 import { Observable, BehaviorSubject } from 'rxjs';
-
+import { DataSource } from '../../../../models/datasources/data-source';
+import * as datasourceActions from './../../../../actions/datasource.action';
+import * as fromDataSource from './../../../../reducers/datasource';
 declare var _: any;
 @Component({
   selector     : 'festo-widget-settings',
@@ -35,6 +39,7 @@ export class FestoWidgetSettingsComponent implements DoCheck   {
 
   _oldWidget: Widget;
   _widget: BehaviorSubject<Widget> = new BehaviorSubject<Widget>(null);
+  dataSourcesList: any[] = [];
   @Input()
   get widget(): Widget {
     return this._widget.getValue();
@@ -46,6 +51,7 @@ export class FestoWidgetSettingsComponent implements DoCheck   {
   }
   @Input() editing: boolean;
   panelOpenState: boolean;
+  connections$: Observable<DataSourceConnection[]>;
   /**
      * Constructor
      *
@@ -55,8 +61,14 @@ export class FestoWidgetSettingsComponent implements DoCheck   {
       private store: Store<fromWidget.WidgetState>,
       private cd: ChangeDetectorRef,
       private modelService: ModelService<Widget>,
-      private widgetService: WidgetService
+      private widgetService: WidgetService,
+      private dataSourceService: DataSourceService
   ) {
+
+    this.connections$ = this.store.pipe(select(fromDataSource.getConnections));
+    this.connections$.subscribe((conn: DataSourceConnection[]) => {
+      this.dataSourcesList = this.dataSourceService.getDataSourcesDropDown(conn);
+    });
     this._widget.subscribe(
       (widget: Widget) => {
         this.modelService.set(widget);

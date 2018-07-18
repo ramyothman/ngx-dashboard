@@ -46,4 +46,18 @@ export class DataSourceService extends BaseApiService<DataSourceConnection> {
           catchError((err, caught) => this.handleError(err, caught, this.http))
         );
     }
+
+    getDataSourcesDropDown(connections: DataSourceConnection[]): any[] {
+      const result: any[] = [];
+      for (const conn of connections) {
+        if (conn.selected === true) {
+          for (const source of conn.dataSources) {
+            if (source.selected === true) {
+              result.push({id: source.id, connection: conn.title, name: source.name, connectionId: conn.id });
+            }
+          }
+        }
+      }
+      return result;
+    }
 }

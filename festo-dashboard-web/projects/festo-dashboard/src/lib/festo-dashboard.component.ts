@@ -128,7 +128,7 @@ export class FestoDashboardComponent implements OnInit, AfterViewInit {
     $('#connectionModal').modal({show: true});
   }
 
-  onCloseModal() {
+  onCloseModal(e) {
     $('#connectionModal').modal('hide');
   }
 

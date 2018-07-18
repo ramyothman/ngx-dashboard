@@ -1,0 +1,19 @@
+<div class="form-widget-setttings" *ngIf="widget">
+  <div class="row form-field">
+    <div class="labelEdit col col-md-12">Data Source</div>
+    <div class="editorEdit col col-md-12">
+      <ng-select [items]="dataSourcesList"
+      bindLabel="name"
+      bindValue="id"
+      groupBy="connection"
+      [(ngModel)]="selectedDataSource"
+      (change)="dataSourceChanged($event)"
+      >
+      <ng-template ng-optgroup-tmp let-item="item">
+          {{item.connection || 'Unnamed group'}}
+      </ng-template>
+    </ng-select>
+    </div>
+  </div>
+
+</div>

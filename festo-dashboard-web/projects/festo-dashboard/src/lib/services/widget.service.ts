@@ -56,6 +56,7 @@ export class WidgetService extends BaseApiService<Dashboard> {
         title: 'Machines Bar Chart',
         selected: false,
         showTitleIn: 'widget',
+        dataSource: null,
         data: null,
         widgetOptions: new WidgetOptions()
       },
@@ -67,6 +68,7 @@ export class WidgetService extends BaseApiService<Dashboard> {
         title: 'Tasks Chart',
         showTitleIn: 'both',
         selected: false,
+        dataSource: null,
         data: null,
         widgetOptions: new WidgetOptions()
       },
@@ -78,6 +80,7 @@ export class WidgetService extends BaseApiService<Dashboard> {
         title: 'Example Chart',
         showTitleIn: 'both',
         selected: false,
+        dataSource: null,
         data: null,
         widgetOptions: new WidgetOptions()
       },
@@ -89,6 +92,7 @@ export class WidgetService extends BaseApiService<Dashboard> {
         title: 'Machines List',
         selected: false,
         showTitleIn: 'none',
+        dataSource: null,
         data: null,
         widgetOptions: new WidgetOptions()
       }];
@@ -136,6 +140,10 @@ export class WidgetService extends BaseApiService<Dashboard> {
         destination = source;
       }
       return destination;
+    }
+
+    processData(data: any[]): Observable<any[]> {
+      return of(data);
     }
 
     getJson(obj: any) {

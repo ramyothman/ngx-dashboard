@@ -62,5 +62,9 @@ namespace Festo.Dashboard.Api.DataSources.Model
         /// only used in case of passing filtering parameter value
         /// </summary>
         public Object ParameterValue { set; get; }
+        /// <summary>
+        /// Column Header to be displayed
+        /// </summary>
+        public string Header { set; get; }
     }
 }

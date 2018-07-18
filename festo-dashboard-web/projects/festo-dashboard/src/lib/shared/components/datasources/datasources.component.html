@@ -1,10 +1,49 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col col-md-4">
-      <p-listbox [options]="connections$ | async | filter:'selected':true" [(ngModel)]="selectedConnection" [style]="{'width':'100%'}" [listStyle]="{'max-height':'300px'}" [ngModelOptions]="{standalone: true}" optionLabel="title"></p-listbox>
+      <div class="form-group">
+        <div class="label">Connection</div>
+        <div class="form-editor">
+          <ng-select [items]="connections$ | async | filter:'selected':true" bindLabel="title" bindValue="id" groupBy="connection"
+            (change)="onConnectionSelect($event)" optionLabel="title"></ng-select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="label">Data Source</div>
+        <div class="form-editor">
+          <p-listbox [options]="selectedConnection?.dataSources | filter:'selected':true" [(ngModel)]="selectedSource" [style]="{'width':'100%'}"
+            [listStyle]="{'max-height':'300px'}" [ngModelOptions]="{standalone: true}" optionLabel="name"></p-listbox>
+        </div>
+      </div>
     </div>
+
     <div class="col col-md-8">
-        <p-listbox [options]="selectedConnection?.dataSources | filter:'selected':true" [(ngModel)]="selectedSource" [style]="{'width':'100%'}" [listStyle]="{'max-height':'300px'}" [ngModelOptions]="{standalone: true}" optionLabel="name"></p-listbox>
+      <div class="form-group">
+        <div class="label">Fields</div>
+        <div class="form-editor">
+          <p-table [value]="selectedSource?.columns">
+            <ng-template pTemplate="header">
+              <tr>
+                <th class="col-field-td">Field</th>
+                <th class="col-header-td">Header</th>
+                <th class="col-hide-td">Hide</th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-column>
+              <tr>
+                <td class="col-field-td">{{column.name}}</td>
+                <td class="col-header-td">
+                  <input [(ngModel)]="column.header" />
+                </td>
+                <td class="col-hide-td">
+                  <p-checkbox [(ngModel)]="column.hide"></p-checkbox>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

@@ -22,6 +22,10 @@ export class ClickOutsideDirective {
           if (element) {
             clickedInside = element.contains(targetElement);
           }
+
+          if (!clickedInside) {
+            clickedInside = targetElement.classList.contains('ng-option-label') || targetElement.classList.contains('ng-option');
+          }
         }
         if (!clickedInside) {
             this.clickOutside.emit(event);

@@ -12,7 +12,8 @@ import { AfterContentInit,
   Input,
   Output,
   OnChanges,
-  ViewEncapsulation } from '@angular/core';
+  ViewEncapsulation,
+  OnInit} from '@angular/core';
 import { FestoWidgetToggleDirective } from './widget-toggle.directive';
 import * as widgetActions from './../../../actions/widget.action';
 import * as fromWidget from './../../../reducers/widget';
@@ -26,7 +27,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
   encapsulation: ViewEncapsulation.None
 })
 
-export class FestoWidgetComponent implements AfterContentInit, OnChanges {
+export class FestoWidgetComponent implements AfterContentInit, OnChanges, OnInit {
+
 
   @HostBinding('class.flipped')
   public get flipped(): boolean {
@@ -51,6 +53,11 @@ export class FestoWidgetComponent implements AfterContentInit, OnChanges {
 
   isInitializedForGridStack = false;
 
+  ngOnInit(): void {
+    this._widget.subscribe((widget: Widget) => {
+
+    });
+  }
   ngOnChanges(e) {
 
   }

@@ -30,6 +30,8 @@ import {
   MatFormFieldModule,
   MatInputModule
 } from '@angular/material';
+import { WidgetSettingBindingComponent } from './widget-settings/widget-setting-binding/widget-setting-binding.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 library.add(fas);
 
 @NgModule({
@@ -49,7 +51,8 @@ library.add(fas);
       MatExpansionModule,
       MatFormFieldModule,
       MatInputModule,
-      NgPipesModule
+      NgPipesModule,
+      NgSelectModule
     ],
     declarations: [
       FestoWidgetComponent,
@@ -60,7 +63,8 @@ library.add(fas);
       WidgetChartDirective,
       ClickOutsideDirective,
       FestoWidgetSettingsComponent,
-      FestoWidgetSettingDetailsComponent
+      FestoWidgetSettingDetailsComponent,
+      WidgetSettingBindingComponent
     ],
     entryComponents: [ WidgetEChartsComponent ],
     providers: [ModelService],

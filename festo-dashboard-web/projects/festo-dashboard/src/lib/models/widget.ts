@@ -1,3 +1,4 @@
+import { DataSource } from './datasources/data-source';
 import { GridStackItem } from 'ng4-gridstack';
 
 export const WidgetTypes = {
@@ -22,6 +23,7 @@ export class Widget {
   // options [widget, chart, both, none]
   showTitleIn: string;
   widgetOptions: WidgetOptions;
+  dataSource: DataSource;
   data: any[];
 }
 

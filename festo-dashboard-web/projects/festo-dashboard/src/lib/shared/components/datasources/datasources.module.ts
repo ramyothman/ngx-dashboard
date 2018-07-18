@@ -15,6 +15,11 @@ import { ListboxModule } from 'primeng/listbox';
 import { TabViewModule } from 'primeng/tabview';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { FilterPipe } from './../../pipes/filter.pipe';
+import {TreeTableModule} from 'primeng/treetable';
+import {TableModule} from 'primeng/table';
+import {CheckboxModule} from 'primeng/checkbox';
+
+
 import {
   MatButtonModule,
   MatCheckboxModule,
@@ -49,7 +54,10 @@ library.add(fas);
     NgSelectModule,
     ListboxModule,
     TabViewModule,
-    SelectButtonModule
+    SelectButtonModule,
+    TreeTableModule,
+    TableModule,
+    CheckboxModule
   ],
   declarations: [
     FestoDataSourceComponent,

@@ -11,4 +11,8 @@ export class Column {
     dataType: string;
     parentId: string;
     parameterValue: any;
+    header: string;
+    expression: string;
+    formatter: any;
+    hide: boolean;
 }

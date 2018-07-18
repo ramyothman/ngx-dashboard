@@ -39,6 +39,24 @@ export class FestoDataSourceComponent implements OnInit {
   closeModal: EventEmitter<boolean> = new EventEmitter<boolean>();
   ngOnInit(): void {
     this.connections$ = this.store.pipe(select(fromDataSource.getConnections));
+    this.connections$.subscribe((conn: DataSourceConnection[]) => {
+      if (this.selectedConnection) {
+        const index = conn.findIndex(w => w.id === this.selectedConnection.id);
+        this.selectedConnection = conn[index];
+        let id = '';
+        if (this.selectedSource) {
+          id = this.selectedSource.id;
+        }
+
+        this.selectedSource = null;
+        for (const source of this.selectedConnection.dataSources) {
+          if (source.selected && source.id === id) {
+            this.selectedSource = source;
+            break;
+          }
+        }
+      }
+    });
   }
 
   /**
@@ -58,4 +76,8 @@ export class FestoDataSourceComponent implements OnInit {
 
   }
 
+  onConnectionSelect(e) {
+    console.log(e);
+    this.selectedConnection = e;
+  }
 }

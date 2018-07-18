@@ -48,6 +48,14 @@ export function reducer(state = initialState, action: widgetActions.Actions): Wi
       return editWidgetReducer(state, action as widgetActions.EditWidgetAction);
     case WIDGET_ACTIONS.UPDATE_WIDGET:
       return updateWidgetReducer(state, action as widgetActions.UpdateWidgetAction);
+    case WIDGET_ACTIONS.UPDATE_DATASOURCE:
+      return updateDataSourceReducer(state, action as widgetActions.UpdateDataSourceAction);
+    case WIDGET_ACTIONS.PROCESS_DATA:
+      return processDataReducer(state, action as widgetActions.ProcessDataAction);
+    case WIDGET_ACTIONS.PROCESS_DATA_SUCCESS:
+      return processDataSuccessReducer(state, action as widgetActions.ProcessDataSuccessAction);
+    case WIDGET_ACTIONS.PROCESS_DATA_Fail:
+      return processDataFailReducer(state, action as widgetActions.ProcessDataFailAction);
     default:
       return state;
   }
@@ -219,6 +227,56 @@ function editWidgetReducer(state: WidgetState, action: widgetActions.EditWidgetA
   return {
     ...state,
     editing: action.payload.editing
+  };
+}
+
+function updateDataSourceReducer(state: WidgetState, action: widgetActions.UpdateDataSourceAction): WidgetState {
+  const index = state.widgetState.findIndex(w => w.id === action.payload.id);
+  if (index <= -1) {
+    return state;
+  }
+  const widget = { ...state.widgetState[index], dataSource: action.payload.source };
+  const widgetState = [
+    ...state.widgetState.slice(0, index),
+    widget,
+    ...state.widgetState.slice(index + 1)
+  ];
+  return {
+    ...state,
+    widgetState
+  };
+}
+
+function processDataReducer(state: WidgetState, action: widgetActions.ProcessDataAction) {
+  return {
+    ...state,
+    loading: true,
+  };
+}
+
+function processDataSuccessReducer(state: WidgetState, action: widgetActions.ProcessDataSuccessAction): WidgetState {
+  const index = state.widgetState.findIndex(w => w.id === action.payload.id);
+  if (index <= -1) {
+    return state;
+  }
+
+  const widget = { ...state.widgetState[index], data: action.payload.data };
+  const widgetState = [
+    ...state.widgetState.slice(0, index),
+    widget,
+    ...state.widgetState.slice(index + 1)
+  ];
+  return {
+    ...state,
+    widgetState,
+    loading: false
+  };
+}
+
+function processDataFailReducer(state: WidgetState, action: widgetActions.ProcessDataFailAction): WidgetState {
+  return {
+    ...state,
+    loading: false,
   };
 }
 

@@ -26,4 +26,18 @@ export class WidgetEffects {
           );
       })
     );
+
+    @Effect()
+    processData$: Observable<Action> = this.actions$
+      .pipe(
+        ofType<widgetActions.ProcessDataAction>(WIDGET_ACTIONS.PROCESS_DATA),
+        map(a => a.payload),
+        switchMap(payload => {
+          return this.widgetService.processData(payload.data)
+          .pipe(
+            map(processedData => new widgetActions.ProcessDataSuccessAction({id: payload.id, data: processedData})),
+            catchError((err) => of(new widgetActions.ProcessDataFailAction(err)))
+          );
+        })
+      );
 }
