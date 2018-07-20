@@ -295,7 +295,7 @@ function loadDataSourceDataSuccessReducer(
 export const getDataSourceConnectionState = createFeatureSelector<DataSourceConnectionState>('datasource');
 export const getConnections = createSelector(getDataSourceConnectionState, (state: DataSourceConnectionState) => state.connectionStates);
 export const getDataSource = (source: any) => createSelector(getConnections, (connections) => {
-  if (connections) {
+  if (connections && source) {
     const conn = connections.find(item => item.id === source.connectionId);
     if (conn) {
       return conn.dataSources.find(item => item.id === source.id);

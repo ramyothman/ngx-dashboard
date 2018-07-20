@@ -1,3 +1,4 @@
+import { ProcessedData } from './../models/datasources/processed-data';
 import { Widget, WidgetOptions } from './../models/widget';
 import { Dashboard } from './../models/dashboard';
 import { HttpClient } from '@angular/common/http';
@@ -9,7 +10,8 @@ import { map, switchMap, catchError, tap } from 'rxjs/operators';
 
 import { BaseApiService } from './base-api.service';
 import { plainToClass, plainToClassFromExist } from 'class-transformer';
-import { GridStackItem, GridStackComponent, GridStackItemComponent } from 'ng4-gridstack';
+import { log } from 'util';
+import { GridStackItem, GridStackComponent, GridStackItemComponent } from 'ngx-grid-stack';
 declare var _: any;
 @Injectable()
 export class WidgetService extends BaseApiService<Dashboard> {
@@ -58,6 +60,9 @@ export class WidgetService extends BaseApiService<Dashboard> {
         showTitleIn: 'widget',
         dataSource: null,
         data: null,
+        xAxis: '',
+        yAxis: [],
+        groupBy: '',
         widgetOptions: new WidgetOptions()
       },
       {
@@ -70,6 +75,9 @@ export class WidgetService extends BaseApiService<Dashboard> {
         selected: false,
         dataSource: null,
         data: null,
+        xAxis: '',
+        yAxis: [],
+        groupBy: '',
         widgetOptions: new WidgetOptions()
       },
       {
@@ -82,6 +90,9 @@ export class WidgetService extends BaseApiService<Dashboard> {
         selected: false,
         dataSource: null,
         data: null,
+        xAxis: '',
+        yAxis: [],
+        groupBy: '',
         widgetOptions: new WidgetOptions()
       },
       {
@@ -94,6 +105,9 @@ export class WidgetService extends BaseApiService<Dashboard> {
         showTitleIn: 'none',
         dataSource: null,
         data: null,
+        xAxis: '',
+        yAxis: [],
+        groupBy: '',
         widgetOptions: new WidgetOptions()
       }];
       return of (widgets);
@@ -110,12 +124,17 @@ export class WidgetService extends BaseApiService<Dashboard> {
           const wIndex = destination.findIndex(iw => iw.id === source[index].id);
           if (wIndex !== -1) {
             destination[wIndex].dashboardId = source[index].dashboardId;
-            destination[wIndex].flipped = source[index].flipped;
             destination[wIndex].location = source[index].location;
+            destination[wIndex].flipped = source[index].flipped;
             destination[wIndex].selected = source[index].selected;
             destination[wIndex].title = source[index].title;
-            destination[wIndex].widgetOptions = source[index].widgetOptions;
             destination[wIndex].showTitleIn = source[index].showTitleIn;
+            destination[wIndex].widgetOptions = source[index].widgetOptions;
+            destination[wIndex].dataSource = source[index].dataSource;
+            destination[wIndex].xAxis = source[index].xAxis;
+            destination[wIndex].groupBy = source[index].groupBy;
+            destination[wIndex].yAxis = source[index].yAxis;
+            destination[wIndex].data = source[index].data;
             this.onWidgetUpdated.emit(destination[wIndex]);
           } else {
             destination.push(source[index]);
@@ -142,9 +161,62 @@ export class WidgetService extends BaseApiService<Dashboard> {
       return destination;
     }
 
-    processData(data: any[]): Observable<any[]> {
-      return of(data);
+    processData(data: any[], xAxis: string, yAxis: string[], groupBy: string): Observable<ProcessedData> {
+      const processedData = new ProcessedData();
+      processedData.xAxis = this.getXAxis(data, xAxis);
+      processedData.yAxis = this.getYAxis(data, yAxis);
+      processedData.yAxis = this.groupBy(processedData.yAxis, yAxis, groupBy);
+      return of(processedData);
     }
+
+    // extract from every record x-axis value
+    getXAxis(data: any[], axisName: string) {
+      if (data === undefined || data === null) {
+        return [];
+      }
+      return { [axisName] : data.map( record => record[axisName])};
+    }
+
+    // extract from every record, y-axis values
+    getYAxis(data: any[], axisNames: string[]) {
+      const newY = [] ;
+      for (const y of axisNames) {
+        const arr =  data.map( record => record[y] );
+        newY[y] = arr;
+      }
+      return newY ;
+    }
+
+    groupBy(dataForGrouping: any[], yAxis: any[], groupingField: string): any {
+      // data series after grouping
+      const newY = [];
+      const oldY = dataForGrouping;
+      if (groupingField === null || groupingField === '') {
+        return dataForGrouping;
+      }
+
+      for (let i = 0 ; i < yAxis.length ; i++ ) { // for every series filed
+        // if field same as grouping field don't add it
+        if (yAxis[i] === groupingField) {
+          continue;
+        }
+        const arr = [];
+        for (let j = 0 ; j < oldY[groupingField].length ; j++) { // data of grouping field
+          // return array of  values that already added for value of grouping field
+          const filtered = arr.filter((record) => record.name === oldY[groupingField][j]);
+          if (filtered.length) {
+            filtered[0].value.push(oldY[yAxis[i]][j]); // filtered[0] : because we have only one for grouping so it always zero
+                                                            // add new value to array of same value of grouping field
+          } else {
+            const x = { name : oldY[groupingField][j] , value: [oldY[yAxis[i]][j]] }; // create new name of grouping value and push element
+            arr.push(x);
+          }
+          newY[yAxis[i]] = arr;
+        }
+      }
+      return newY;
+    }
+
 
     getJson(obj: any) {
       const filtered = _.pick(obj, function (v) { return v !== '' && v !== null; });

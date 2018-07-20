@@ -24,7 +24,7 @@ import * as fromDashboard from './reducers/dashboard';
 import * as fromWidget from './reducers/widget';
 import * as fromDataSource from './reducers/datasource';
 import { Observable } from 'rxjs';
-import { GridStackComponent, GridStackItem, GridStackItemComponent, GridStackOptions } from 'ng4-gridstack';
+import { GridStackItem, GridStackOptions, GridStackItemComponent, GridStackComponent} from 'ngx-grid-stack';
 declare var _: any;
 declare var $: any;
 @Component({

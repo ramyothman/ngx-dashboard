@@ -19,12 +19,12 @@
 <div class="festo-dashboard-body">
   <div class="festo-dashboard-overlay" *ngIf="editing$ | async"></div>
   <div class="festo-dashboard">
-    <grid-stack #gridStackDashboard class="grid-stack festo-dashboard-container" [options]="gridStackOptions">
-      <grid-stack-item id="widget-{{widget.id}}" [(option)]="widget.location" [class.widget-highlight]="widget.selected && editing$ | async"
-        class="grid-stack-item" *ngFor="let widget of widgets;" (onGridConfigurationChanged)="onGridConfigurationChanged($event, widget)">
+    <ngx-grid-stack #gridStackDashboard class="grid-stack festo-dashboard-container" [options]="gridStackOptions">
+      <ngx-grid-stack-item id="widget-{{widget.id}}" [(option)]="widget.location" [class.widget-highlight]="widget.selected && editing$ | async"
+        class="grid-stack-item" *ngFor="let widget of widgets;" (GridConfigurationChanged)="onGridConfigurationChanged($event, widget)">
         <festo-widget-card [widget]="widget" [editing]="editing$ | async"></festo-widget-card>
-      </grid-stack-item>
-    </grid-stack>
+      </ngx-grid-stack-item>
+    </ngx-grid-stack>
   </div>
   <div class="festo-dashboard-sidebar" id="festo-dashboard-sidebar" [class.active]="!(editing$ | async)">
     <festo-widget-settings [widget]="selectedWidget$ | async" [editing]="editing$ | async"></festo-widget-settings>

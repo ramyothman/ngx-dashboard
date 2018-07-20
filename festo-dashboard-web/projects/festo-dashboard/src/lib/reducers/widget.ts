@@ -1,5 +1,4 @@
 import { WidgetState } from './widget';
-import { GridStackItem } from 'ng4-gridstack';
 import { Widget } from './../models/widget';
 import * as widgetActions from './../actions/widget.action';
 import { WIDGET_ACTIONS, UpdateLocationAction, UnSelectWidgetsAction } from './../actions/widget.action';

@@ -1,3 +1,4 @@
+import { ProcessedData } from './../models/datasources/processed-data';
 import { DataSource } from './../models/datasources/data-source';
 import { Widget } from './../models/widget';
 import { Action } from '@ngrx/store';
@@ -97,13 +98,13 @@ export class UpdateWidgetAction implements Action {
 export class ProcessDataAction implements Action {
   readonly type = WIDGET_ACTIONS.PROCESS_DATA;
 
-  constructor(public payload?: {id: string, data: any[]}) { }
+  constructor(public payload?: {id: string, data: any[], xAxis: string, yAxis: string[], groupBy: string}) { }
 }
 
 export class ProcessDataSuccessAction implements Action {
   readonly type = WIDGET_ACTIONS.PROCESS_DATA_SUCCESS;
 
-  constructor(public payload: {id: string, data: any[]}) { }
+  constructor(public payload: {id: string, data: ProcessedData}) { }
 }
 
 export class ProcessDataFailAction implements Action {

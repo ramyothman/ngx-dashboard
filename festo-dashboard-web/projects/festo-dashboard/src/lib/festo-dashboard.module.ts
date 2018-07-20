@@ -1,3 +1,4 @@
+import { GridStackModule } from 'ngx-grid-stack';
 import { FestoDataSourceModule } from './shared/components/datasources/datasources.module';
 import { DataSourceEffects } from './effects/datasource.effect';
 import { DataSourceService } from './services/datasource.service';
@@ -23,7 +24,7 @@ import { reducers, AppState, metaReducers } from './reducers';
 import { DashboardEffects } from './effects/dashboard.effect';
 import { WidgetEffects } from './effects/widget.effect';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { GridStackModule } from 'ng4-gridstack';
+
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ModelService } from './services/model.service';
 import {

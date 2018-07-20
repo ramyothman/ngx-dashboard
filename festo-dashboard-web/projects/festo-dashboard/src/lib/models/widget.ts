@@ -1,5 +1,6 @@
+import { ProcessedData } from './datasources/processed-data';
 import { DataSource } from './datasources/data-source';
-import { GridStackItem } from 'ng4-gridstack';
+import { GridStackItem } from 'ngx-grid-stack';
 
 export const WidgetTypes = {
   line: 'line',
@@ -24,7 +25,10 @@ export class Widget {
   showTitleIn: string;
   widgetOptions: WidgetOptions;
   dataSource: DataSource;
-  data: any[];
+  xAxis: string;
+  groupBy: string;
+  yAxis: string[];
+  data: ProcessedData;
 }
 
 export class WidgetOptions {
