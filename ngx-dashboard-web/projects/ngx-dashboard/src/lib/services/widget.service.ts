@@ -2,7 +2,7 @@ import { ProcessedData } from './../models/datasources/processed-data';
 import { Widget, WidgetOptions } from './../models/widget';
 import { Dashboard } from './../models/dashboard';
 import { HttpClient } from '@angular/common/http';
-
+import * as echart from 'echarts';
 import { Injectable, EventEmitter, QueryList } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import 'rxjs/add/operator/toPromise';
@@ -167,9 +167,10 @@ export class WidgetService extends BaseApiService<Dashboard> {
       processedData.yAxis = this.getYAxis(widget.dataSource.data, widget.yAxis);
       processedData.yAxis = this.groupBy(widget.data.yAxis, widget.yAxis, widget.groupBy);
       // add call for method for building widget
+      this.setWidgetOption(widget, processedData);
       return of(processedData);
     }
-    //TODO: Add Method for building the widget - Manipulate widget.WidgetOptions
+    // TODO: Add Method for building the widget - Manipulate widget.WidgetOptions
 
     // extract from every record x-axis value
     getXAxis(data: any[], axisName: string) {
@@ -217,6 +218,14 @@ export class WidgetService extends BaseApiService<Dashboard> {
         }
       }
       return newY;
+    }
+    setWidgetOption(widget: Widget, processData: ProcessedData) {
+      widget.widgetOptions.tooltip.trigger = 'item';                  // when hover on chart, data appear
+      widget.widgetOptions.xAxis.data = processData.xAxis ;     // assign x-axis to echarts
+      for (const axisName of widget.yAxis) {
+        // tslint:disable-next-line:max-line-length
+        widget.widgetOptions.series.push({name: axisName , type: 'bar' , data: processData.yAxis[axisName] }); // push every series with name, echart type and color
+      }
     }
 
 

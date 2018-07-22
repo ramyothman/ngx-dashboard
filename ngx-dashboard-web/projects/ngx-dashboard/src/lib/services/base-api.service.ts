@@ -15,7 +15,7 @@ import { generate } from 'shortid';
 
 @Injectable()
 export class BaseApiService<T> implements IApi<T> {
-  API_ENDPOINT = 'http://localhost:6131/api/';
+  API_ENDPOINT = 'http://localhost:49948/api/';
   endPoint: string;
   protected headers = new Headers({ 'Content-Type': 'application/json' });
   protected headersPost = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

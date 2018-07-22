@@ -33,8 +33,51 @@
       </ng-select>
       </div>
     </div>
-    <!-- Add Y Axis -->
-    <!-- Add Group By Axis -->
+
+  </div>
+</div>
+<div class="row" *ngIf="selectedSource">
+  <div class="col col-md-12">
+    <div class="row form-field">
+      <div class="labelEdit col col-md-12">yAxis</div>
+      <div class="editorEdit col col-md-12">
+        <ng-select [items]="selectedSource.columns"
+        [multiple] = "true"
+        bindLabel="name"
+        bindValue="id"
+        groupBy="dataType"
+        [(ngModel)]="widget.yAxis"
+        (change)="columnChanged($event)"
+        >
+        <ng-template ng-optgroup-tmp let-item="item">
+            {{item.dataType || 'Other'}}
+        </ng-template>
+      </ng-select>
+      </div>
+    </div>
+    
+  </div>
+</div>
+<div class="row" *ngIf="selectedSource">
+  <div class="col col-md-12">
+    <div class="row form-field">
+      <div class="labelEdit col col-md-12">groupBy</div>
+      <div class="editorEdit col col-md-12">
+        <ng-select [items]="selectedSource.columns"
+        [multiple] = "true"
+        bindLabel="name"
+        bindValue="id"
+        groupBy="dataType"
+        [(ngModel)]="widget.groupBy"
+        (change)="columnChanged($event)"
+        >
+        <ng-template ng-optgroup-tmp let-item="item">
+            {{item.dataType || 'Other'}}
+        </ng-template>
+      </ng-select>
+      </div>
+    </div>
+    
   </div>
 </div>
 
