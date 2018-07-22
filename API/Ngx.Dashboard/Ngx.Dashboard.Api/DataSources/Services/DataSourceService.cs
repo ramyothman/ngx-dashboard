@@ -267,6 +267,7 @@ namespace Ngx.Dashboard.Api.DataSources.Services
                 if (parameter.Source.SourceType != "procedure")
                 {
                     string paramsString = "";
+                    if(parameter.Source.Parameters != null)
                     foreach (var par in parameter.Source.Parameters)
                     {
                         if (paramsString.Length > 0)
