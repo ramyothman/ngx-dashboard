@@ -161,27 +161,30 @@ export class WidgetService extends BaseApiService<Dashboard> {
       return destination;
     }
 
-    processData(widget: Widget): Observable<ProcessedData> {
+    processData(widget: Widget): Observable<Widget> {
       const processedData = new ProcessedData();
-      processedData.xAxis = this.getXAxis(widget.dataSource.data, widget.xAxis);
-      processedData.yAxis = this.getYAxis(widget.dataSource.data, widget.yAxis);
-      processedData.yAxis = this.groupBy(widget.data.yAxis, widget.yAxis, widget.groupBy);
+      if (widget.dataSource) {
+        processedData.xAxis = this.getXAxis(widget.dataSource.data, widget.xAxis);
+        processedData.yAxis = this.getYAxis(widget.dataSource.data, widget.yAxis);
+        processedData.yAxis = this.groupBy(widget.data.yAxis, widget.yAxis, widget.groupBy);
       // add call for method for building widget
-      this.setWidgetOption(widget, processedData);
-      return of(processedData);
+        widget.widgetOptions = this.setWidgetOption(widget, processedData);
+      }
+      const widgetRecord = {...widget};
+      return of(widgetRecord);
     }
     // TODO: Add Method for building the widget - Manipulate widget.WidgetOptions
 
     // extract from every record x-axis value
     getXAxis(data: any[], axisName: string) {
-      if (data === undefined || data === null) {
+      if (data === undefined || data === null || axisName === undefined || axisName == null ) {
         return [];
       }
       return { [axisName] : data.map( record => record[axisName])};
     }
 
     // extract from every record, y-axis values
-    getYAxis(data: any[], axisNames: string[]) {
+    getYAxis(data: any[], axisNames: string[]): any {
       const newY = [] ;
       for (const y of axisNames) {
         const arr =  data.map( record => record[y] );
@@ -219,13 +222,16 @@ export class WidgetService extends BaseApiService<Dashboard> {
       }
       return newY;
     }
-    setWidgetOption(widget: Widget, processData: ProcessedData) {
+    setWidgetOption(widget: Widget, processData: ProcessedData): WidgetOptions {
       widget.widgetOptions.tooltip.trigger = 'item';                  // when hover on chart, data appear
       widget.widgetOptions.xAxis.data = processData.xAxis ;     // assign x-axis to echarts
+      widget.widgetOptions.series = [];
       for (const axisName of widget.yAxis) {
-        // tslint:disable-next-line:max-line-length
-        widget.widgetOptions.series.push({name: axisName , type: 'bar' , data: processData.yAxis[axisName] }); // push every series with name, echart type and color
-      }
+        widget.widgetOptions.series.push({
+                  name: axisName , type: 'bar' , data: processData.yAxis[axisName]  // push every series with name, echart type and color
+                });
+       }
+       return widget.widgetOptions;
     }
 
 

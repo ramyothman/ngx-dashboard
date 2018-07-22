@@ -26,7 +26,7 @@ export class WidgetSettingBindingComponent implements OnInit {
     private storeConnections: Store<fromDataSource.DataSourceConnectionState>,
     private storeWidget: Store<fromWidget.WidgetState>
   ) {}
-
+  ngOnInit() {}
   dataSourceChanged(e) {
     if (e == null) {
       return;
@@ -47,9 +47,5 @@ export class WidgetSettingBindingComponent implements OnInit {
       {
         widget: this.widget
       }));
-  }
-
-  ngOnInit() {
-
   }
 }

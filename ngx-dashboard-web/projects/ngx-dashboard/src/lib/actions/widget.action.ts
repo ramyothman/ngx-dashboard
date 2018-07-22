@@ -104,7 +104,7 @@ export class ProcessDataAction implements Action {
 export class ProcessDataSuccessAction implements Action {
   readonly type = WIDGET_ACTIONS.PROCESS_DATA_SUCCESS;
 
-  constructor(public payload: {id: string, data: ProcessedData}) { }
+  constructor(public payload: {widget: Widget}) { }
 }
 
 export class ProcessDataFailAction implements Action {

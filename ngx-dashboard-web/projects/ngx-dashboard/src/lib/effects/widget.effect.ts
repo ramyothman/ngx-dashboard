@@ -35,7 +35,7 @@ export class WidgetEffects {
         switchMap(payload => {
           return this.widgetService.processData(payload.widget)
           .pipe(
-            map(processedData => new widgetActions.ProcessDataSuccessAction({id: payload.widget.id, data: processedData})),
+            map(widgetRecord => new widgetActions.ProcessDataSuccessAction({widget: widgetRecord})),
             catchError((err) => of(new widgetActions.ProcessDataFailAction(err)))
           );
         })

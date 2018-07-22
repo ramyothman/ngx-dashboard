@@ -254,12 +254,12 @@ function processDataReducer(state: WidgetState, action: widgetActions.ProcessDat
 }
 
 function processDataSuccessReducer(state: WidgetState, action: widgetActions.ProcessDataSuccessAction): WidgetState {
-  const index = state.widgetState.findIndex(w => w.id === action.payload.id);
+  const index = state.widgetState.findIndex(w => w.id === action.payload.widget.id);
   if (index <= -1) {
     return state;
   }
 
-  const widget = { ...state.widgetState[index], data: action.payload.data };
+  const widget = { ...state.widgetState[index], data: action.payload.widget.data, widgetOptions: action.payload.widget.widgetOptions };
   const widgetState = [
     ...state.widgetState.slice(0, index),
     widget,
