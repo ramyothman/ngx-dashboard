@@ -106,6 +106,12 @@ export class NgxCreateDataSourceComponent implements OnInit {
         this.store.dispatch(new datasourceActions.LoadDataSourceColumnsAction(
           {id: this.selectedConnection.id, sources: this.selectedSources}
         ));
+        for (const dSource of this.selectedSources) {
+          this.store.dispatch(new datasourceActions.LoadDataSourceDataAction(
+            {source: dSource}
+          ));
+        }
+        
         this.closeModal.emit(true);
         break;
       default:

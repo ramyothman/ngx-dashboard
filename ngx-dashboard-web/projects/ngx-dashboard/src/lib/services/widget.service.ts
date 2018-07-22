@@ -161,13 +161,15 @@ export class WidgetService extends BaseApiService<Dashboard> {
       return destination;
     }
 
-    processData(data: any[], xAxis: string, yAxis: string[], groupBy: string): Observable<ProcessedData> {
+    processData(widget: Widget): Observable<ProcessedData> {
       const processedData = new ProcessedData();
-      processedData.xAxis = this.getXAxis(data, xAxis);
-      processedData.yAxis = this.getYAxis(data, yAxis);
-      processedData.yAxis = this.groupBy(processedData.yAxis, yAxis, groupBy);
+      processedData.xAxis = this.getXAxis(widget.dataSource.data, widget.xAxis);
+      processedData.yAxis = this.getYAxis(widget.dataSource.data, widget.yAxis);
+      processedData.yAxis = this.groupBy(widget.data.yAxis, widget.yAxis, widget.groupBy);
+      // add call for method for building widget
       return of(processedData);
     }
+    //TODO: Add Method for building the widget - Manipulate widget.WidgetOptions
 
     // extract from every record x-axis value
     getXAxis(data: any[], axisName: string) {

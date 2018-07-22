@@ -98,7 +98,7 @@ export class UpdateWidgetAction implements Action {
 export class ProcessDataAction implements Action {
   readonly type = WIDGET_ACTIONS.PROCESS_DATA;
 
-  constructor(public payload?: {id: string, data: any[], xAxis: string, yAxis: string[], groupBy: string}) { }
+  constructor(public payload?: {widget: Widget}) { }
 }
 
 export class ProcessDataSuccessAction implements Action {

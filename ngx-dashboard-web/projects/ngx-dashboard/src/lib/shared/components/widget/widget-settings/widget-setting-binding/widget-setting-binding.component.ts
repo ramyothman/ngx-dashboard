@@ -37,11 +37,7 @@ export class WidgetSettingBindingComponent implements OnInit {
       this.storeWidget.dispatch(new widgetActions.UpdateDataSourceAction({id: this.widget.id, source: event}));
       this.storeWidget.dispatch(new widgetActions.ProcessDataAction(
         {
-          id: this.widget.id,
-          data: event.data,
-          xAxis: this.widget.xAxis,
-          yAxis: this.widget.yAxis,
-          groupBy: this.widget.groupBy
+          widget: this.widget
         }));
     });
   }
@@ -49,11 +45,7 @@ export class WidgetSettingBindingComponent implements OnInit {
   columnChanged(e) {
     this.storeWidget.dispatch(new widgetActions.ProcessDataAction(
       {
-        id: this.widget.id,
-        data: this.selectedSource.data,
-        xAxis: this.widget.xAxis,
-        yAxis: this.widget.yAxis,
-        groupBy: this.widget.groupBy
+        widget: this.widget
       }));
   }
 
