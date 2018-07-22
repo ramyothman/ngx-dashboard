@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  Ngx.dashboard.api:
+    image: ${DOCKER_REGISTRY}Ngxdashboardapi
+    build:
+      context: .
+      dockerfile: Ngx.Dashboard.Api\Dockerfile

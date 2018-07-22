@@ -1,0 +1,87 @@
+<div class="settings-container">
+  <div class="settings-content">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header class="white-bg">
+          <div class="row">
+            <div class="col col-md-12 dashboard-panel-title">
+              <mat-panel-title>
+                Details
+              </mat-panel-title>
+            </div>
+
+            <div class="col col-md-12 dashboard-panel-subtitle">
+              <mat-panel-description>
+                Detail information
+              </mat-panel-description>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+        <ngx-widget-setting-details [widget]="widget"></ngx-widget-setting-details>
+      </mat-expansion-panel>
+      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+        <mat-expansion-panel-header class="white-bg">
+          <div class="row">
+            <div class="col col-md-12 dashboard-panel-title">
+              <mat-panel-title>
+                Bindings
+              </mat-panel-title>
+            </div>
+            <div class="col col-md-12 dashboard-panel-subtitle">
+              <mat-panel-description>
+                Data bindings for chosen sources {{widget?.selected}}
+              </mat-panel-description>
+            </div>
+          </div>
+        </mat-expansion-panel-header>
+        <ngx-widget-setting-binding [widget]="widget" [dataSourcesList]="dataSourcesList"></ngx-widget-setting-binding>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header class="white-bg">
+          <div class="row">
+            <div class="col col-md-12 dashboard-panel-title">
+              <mat-panel-title>
+                Visualizations
+              </mat-panel-title>
+            </div>
+
+            <div class="col col-md-12 dashboard-panel-subtitle">
+              <mat-panel-description>
+                Manage visualization information
+              </mat-panel-description>
+            </div>
+          </div>
+
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header class="white-bg">
+          <div class="row">
+            <div class="col col-md-12 dashboard-panel-title">
+              <mat-panel-title>
+                Filtering
+              </mat-panel-title>
+            </div>
+
+            <div class="col col-md-12 dashboard-panel-subtitle">
+              <mat-panel-description>
+                Filter data
+              </mat-panel-description>
+            </div>
+          </div>
+
+        </mat-expansion-panel-header>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+  <div class="settings-footer">
+    <div class="bottom-commands">
+      <div class="row">
+        <div class="col col-md-12">
+          <button class="btn btn-settings-control float-right" (click)="cancel()"> Cancel</button>
+          <button class="btn btn-primary btn-settings-control float-right" (click)="save()"><fa-icon icon="save"></fa-icon> Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
