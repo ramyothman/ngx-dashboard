@@ -20,8 +20,8 @@ namespace Ngx.Dashboard.Api.DataSources.Services
         /// sample connections simulating database references
         /// </summary>
         public string[] connections = {
-            @"Data Source=212.227.198.182,56221\SQL2016;Initial Catalog=PamsZeroAbdo3;Persist Security Info=True;User ID=sa;Password=Pams@Sh0tec;Max Pool Size=32767;",
-            @"Data Source=212.227.198.182,56221\SQL2016;Initial Catalog=PamsZeroAbdo3;Persist Security Info=True;User ID=sa;Password=Pams@Sh0tec;Max Pool Size=32767;" };
+            "Server=tcp:dev-db-ecn.database.windows.net,1433;Initial Catalog=dev-db-ecn;Persist Security Info=False;User ID=dev-db-ecn-admin;Password=f402261e-f011-42f9-bc22-3239ccf93722;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;",
+            "Server=tcp:dev-db-ecn.database.windows.net,1433;Initial Catalog=dev-dbsm-ecn;Persist Security Info=False;User ID=dev-db-ecn-admin;Password=f402261e-f011-42f9-bc22-3239ccf93722;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;" };
             
         public DataSourceService(IHostingEnvironment host)
         {

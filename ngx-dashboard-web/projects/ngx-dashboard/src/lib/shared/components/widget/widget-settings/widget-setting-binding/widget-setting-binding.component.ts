@@ -1,6 +1,6 @@
 import { Store, select } from '@ngrx/store';
 import { Widget } from './../../../../../models/widget';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import * as widgetActions from './../../../../../actions/widget.action';
 import * as fromWidget from './../../../../../reducers/widget';
 import * as datasourceActions from './../../../../../actions/datasource.action';
@@ -18,6 +18,7 @@ import { DataSourceConnection } from '../../../../../models/datasources/data-sou
 export class WidgetSettingBindingComponent implements OnInit {
   @Input() widget: Widget;
   @Input() dataSourcesList: any[];
+  @Output() readyToProcess: EventEmitter<boolean> = new EventEmitter<boolean>();
   selectedDataSource: any;
   widgets$: Observable<Widget[]>;
   source$: Observable<DataSource>;
@@ -35,6 +36,7 @@ export class WidgetSettingBindingComponent implements OnInit {
     this.source$.subscribe((event: DataSource) => {
       this.selectedSource = event;
       this.storeWidget.dispatch(new widgetActions.UpdateDataSourceAction({id: this.widget.id, source: event}));
+      this.updateSelected();
       this.storeWidget.dispatch(new widgetActions.ProcessDataAction(
         {
           widget: this.widget
@@ -43,9 +45,10 @@ export class WidgetSettingBindingComponent implements OnInit {
   }
 
   columnChanged(e) {
-    this.storeWidget.dispatch(new widgetActions.ProcessDataAction(
-      {
-        widget: this.widget
-      }));
+    this.readyToProcess.emit(true);
+  }
+
+  updateSelected() {
+    this.storeWidget.dispatch(new widgetActions.SelectWidgetAction(this.widget.id));
   }
 }

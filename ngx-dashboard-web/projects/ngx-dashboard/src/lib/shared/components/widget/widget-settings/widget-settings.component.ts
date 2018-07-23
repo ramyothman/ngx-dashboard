@@ -85,6 +85,14 @@ export class NgxWidgetSettingsComponent implements DoCheck   {
     }
   }
 
+  onReadyToProcess(e) {
+    this.update();
+    this.store.dispatch(new widgetActions.ProcessDataAction(
+      {
+        widget: this.widget
+      }));
+  }
+
   cancel() {
     this.widget = this.modelService.restoreItem();
     this.store.dispatch(new widgetActions.UpdateWidgetAction({widget: this.widget}));
