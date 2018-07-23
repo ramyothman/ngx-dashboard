@@ -59,13 +59,10 @@ export class WidgetEChartsComponent extends WidgetChartItemComponent {
    */
   chartOptions = {
     title: {
-      text: '堆叠区域图'
+      text: ''
     },
     tooltip : {
       trigger: 'axis'
-    },
-    legend: {
-      data: ['Cat 1', 'Cat 2', 'Cat 3', 'Cat 4']
     },
     toolbox: {
       feature: {
@@ -78,61 +75,7 @@ export class WidgetEChartsComponent extends WidgetChartItemComponent {
       bottom: '3%',
       containLabel: true
     },
-    xAxis : [
-      {
-        type : 'category',
-        boundaryGap : false,
-        data : ['Jan', 'Feb', 'Mar', 'Jun', 'Jul', 'Aug', 'Sep']
-      }
-    ],
-    yAxis : [
-      {
-        type : 'value'
-      }
-    ],
-    series : [
-      {
-        name: 'Cat 1',
-        type: 'line',
-        stack: '总量',
-        areaStyle: {normal: {}},
-        data: [120, 132, 101, 134, 90, 230, 210]
-      },
-      {
-        name: 'Cat 2',
-        type: 'line',
-        stack: '总量',
-        areaStyle: {normal: {}},
-        data: [220, 182, 191, 234, 290, 330, 310]
-      },
-      {
-        name: 'Cat 3',
-        type: 'line',
-        stack: '总量',
-        areaStyle: {normal: {}},
-        data: [150, 232, 201, 154, 190, 330, 410]
-      },
-      {
-        name: 'Cat 4',
-        type: 'line',
-        stack: '总量',
-        areaStyle: {normal: {}},
-        data: [320, 332, 301, 334, 390, 330, 320]
-      },
-      {
-        name: 'Cat 6',
-        type: 'line',
-        stack: '总量',
-        label: {
-          normal: {
-            show: true,
-            position: 'top'
-          }
-        },
-        areaStyle: {normal: {}},
-        data: [820, 932, 901, 934, 1290, 1330, 1320]
-      }
-    ]
+    series : []
   };
 
   chartType = 'echarts';

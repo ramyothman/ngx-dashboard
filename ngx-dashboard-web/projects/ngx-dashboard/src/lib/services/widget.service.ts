@@ -165,13 +165,19 @@ export class WidgetService extends BaseApiService<Dashboard> {
       const processedData = new ProcessedData();
       if (widget.dataSource) {
         processedData.xAxis = this.getXAxis(widget.dataSource.data, widget.xAxis);
+        console.log('x Axis Processed', processedData);
         processedData.yAxis = this.getYAxis(widget.dataSource.data, widget.yAxis);
-        processedData.yAxis = this.groupBy(widget.data.yAxis, widget.yAxis, widget.groupBy);
+        console.log('y Axis Processed', processedData);
+
+        processedData.yAxis = this.groupBy(processedData.yAxis, widget.yAxis, widget.groupBy);
+        console.log('group By Processed', processedData);
       // add call for method for building widget
+      widget.data = processedData;
         widget.widgetOptions = this.setWidgetOption(widget, processedData);
+        console.log('widgetOptions Processed', widget.widgetOptions);
       }
-      const widgetRecord = {...widget};
-      return of(widgetRecord);
+      // const widgetRecord = {...widget};
+      return of(widget);
     }
     // TODO: Add Method for building the widget - Manipulate widget.WidgetOptions
 
@@ -186,9 +192,11 @@ export class WidgetService extends BaseApiService<Dashboard> {
     // extract from every record, y-axis values
     getYAxis(data: any[], axisNames: string[]): any {
       const newY = [] ;
-      for (const y of axisNames) {
-        const arr =  data.map( record => record[y] );
-        newY[y] = arr;
+      if (axisNames) {
+        for (const y of axisNames) {
+          const arr =  data.map( record => record[y] );
+          newY[y] = arr;
+        }
       }
       return newY ;
     }
@@ -197,7 +205,12 @@ export class WidgetService extends BaseApiService<Dashboard> {
       // data series after grouping
       const newY = [];
       const oldY = dataForGrouping;
-      if (groupingField === null || groupingField === '') {
+      if (groupingField === null ||
+        groupingField === '' ||
+        !yAxis ||
+        yAxis.length === 0 ||
+        !dataForGrouping ||
+        dataForGrouping.length === 0) {
         return dataForGrouping;
       }
 

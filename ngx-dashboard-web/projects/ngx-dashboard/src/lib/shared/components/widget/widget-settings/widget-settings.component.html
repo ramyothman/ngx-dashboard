@@ -34,7 +34,7 @@
             </div>
           </div>
         </mat-expansion-panel-header>
-        <ngx-widget-setting-binding [widget]="widget" [dataSourcesList]="dataSourcesList"></ngx-widget-setting-binding>
+        <ngx-widget-setting-binding [widget]="widget" (readyToProcess)="onReadyToProcess($event)" [dataSourcesList]="dataSourcesList"></ngx-widget-setting-binding>
       </mat-expansion-panel>
       <mat-expansion-panel>
         <mat-expansion-panel-header class="white-bg">
