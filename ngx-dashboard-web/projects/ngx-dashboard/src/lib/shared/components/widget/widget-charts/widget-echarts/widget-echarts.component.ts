@@ -64,11 +64,6 @@ export class WidgetEChartsComponent extends WidgetChartItemComponent {
     tooltip : {
       trigger: 'axis'
     },
-    toolbox: {
-      feature: {
-        saveAsImage: {}
-      }
-    },
     grid: {
       left: '3%',
       right: '4%',

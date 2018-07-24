@@ -26,6 +26,7 @@ export class Widget {
   widgetOptions: WidgetOptions;
   dataSource: DataSource;
   xAxis: string;
+  widgetType = 'bar';
   groupBy: string;
   yAxis: string[];
   data: ProcessedData;

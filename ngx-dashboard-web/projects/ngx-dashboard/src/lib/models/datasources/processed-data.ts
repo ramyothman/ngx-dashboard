@@ -1,4 +1,4 @@
 export class ProcessedData {
-  xAxis: any;
+  xAxis: any[];
   yAxis: any[];
 }

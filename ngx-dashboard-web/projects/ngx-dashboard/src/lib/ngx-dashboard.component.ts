@@ -55,6 +55,8 @@ export class NgxDashboardComponent implements OnInit, AfterViewInit {
   ) {
     this.gridStackOptions.float = false;
     this.gridStackOptions.handleClass = 'widget-handle';
+    this.gridStackOptions.resizable = true;
+    
     this.widgetsUpdated.subscribe((widgets: Widget[]) => {
       this.onWidgetsUpdated(widgets);
     });

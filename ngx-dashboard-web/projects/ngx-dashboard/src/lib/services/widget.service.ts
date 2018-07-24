@@ -1,5 +1,5 @@
 import { ProcessedData } from './../models/datasources/processed-data';
-import { Widget, WidgetOptions } from './../models/widget';
+import { Widget, WidgetOptions, WidgetAxis } from './../models/widget';
 import { Dashboard } from './../models/dashboard';
 import { HttpClient } from '@angular/common/http';
 import * as echart from 'echarts';
@@ -63,6 +63,7 @@ export class WidgetService extends BaseApiService<Dashboard> {
         xAxis: '',
         yAxis: [],
         groupBy: '',
+        widgetType: 'bar',
         widgetOptions: new WidgetOptions()
       },
       {
@@ -78,6 +79,7 @@ export class WidgetService extends BaseApiService<Dashboard> {
         xAxis: '',
         yAxis: [],
         groupBy: '',
+        widgetType: 'bar',
         widgetOptions: new WidgetOptions()
       },
       {
@@ -93,6 +95,7 @@ export class WidgetService extends BaseApiService<Dashboard> {
         xAxis: '',
         yAxis: [],
         groupBy: '',
+        widgetType: 'bar',
         widgetOptions: new WidgetOptions()
       },
       {
@@ -108,6 +111,7 @@ export class WidgetService extends BaseApiService<Dashboard> {
         xAxis: '',
         yAxis: [],
         groupBy: '',
+        widgetType: 'bar',
         widgetOptions: new WidgetOptions()
       }];
       return of (widgets);
@@ -165,16 +169,11 @@ export class WidgetService extends BaseApiService<Dashboard> {
       const processedData = new ProcessedData();
       if (widget.dataSource) {
         processedData.xAxis = this.getXAxis(widget.dataSource.data, widget.xAxis);
-        console.log('x Axis Processed', processedData);
         processedData.yAxis = this.getYAxis(widget.dataSource.data, widget.yAxis);
-        console.log('y Axis Processed', processedData);
-
         processedData.yAxis = this.groupBy(processedData.yAxis, widget.yAxis, widget.groupBy);
-        console.log('group By Processed', processedData);
       // add call for method for building widget
-      widget.data = processedData;
+        widget.data = processedData;
         widget.widgetOptions = this.setWidgetOption(widget, processedData);
-        console.log('widgetOptions Processed', widget.widgetOptions);
       }
       // const widgetRecord = {...widget};
       return of(widget);
@@ -186,7 +185,8 @@ export class WidgetService extends BaseApiService<Dashboard> {
       if (data === undefined || data === null || axisName === undefined || axisName == null ) {
         return [];
       }
-      return { [axisName] : data.map( record => record[axisName])};
+      
+      return data.map( record => record[axisName]);
     }
 
     // extract from every record, y-axis values
@@ -237,11 +237,20 @@ export class WidgetService extends BaseApiService<Dashboard> {
     }
     setWidgetOption(widget: Widget, processData: ProcessedData): WidgetOptions {
       widget.widgetOptions.tooltip.trigger = 'item';                  // when hover on chart, data appear
-      widget.widgetOptions.xAxis.data = processData.xAxis ;     // assign x-axis to echarts
+      if(widget.widgetType == 'pie') {
+        widget.widgetOptions.xAxis = new WidgetAxis();
+        widget.widgetOptions.yAxis = new WidgetAxis();
+      } else {
+        widget.widgetOptions.xAxis.data = processData.xAxis;     // assign x-axis to echarts
+        widget.widgetOptions.xAxis.type = 'category';
+        widget.widgetOptions.yAxis.type = 'value';
+      }
+      
+      widget.widgetOptions.grid.containLabel = true;
       widget.widgetOptions.series = [];
       for (const axisName of widget.yAxis) {
         widget.widgetOptions.series.push({
-                  name: axisName , type: 'bar' , data: processData.yAxis[axisName]  // push every series with name, echart type and color
+                  name: axisName , type: widget.widgetType , data: processData.yAxis[axisName]  // push every series with name, echart type and color
                 });
        }
        return widget.widgetOptions;
