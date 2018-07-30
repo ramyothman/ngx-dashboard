@@ -40,7 +40,7 @@ export class WidgetOptions {
   yAxis: WidgetAxis = new WidgetAxis();
   tooltip: WidgetTooltip = new WidgetTooltip();
   axisPointer: WidgetAxisPointer = new WidgetAxisPointer();
-  singleAxis: WidgetAxis = new WidgetAxis();
+  singleAxis: WidgetAxis ;
   dataset: WidgetDataset = new WidgetDataset();
   series: any;
   color: any[];
@@ -48,9 +48,15 @@ export class WidgetOptions {
   textStyle: WidgetStyleOptions = new WidgetStyleOptions();
   animation: boolean;
   useUTC: boolean;
+  dataZoom: WidgetZoom ;
 }
 
 // https://ecomfe.github.io/echarts-doc/public/en/option.html#dataset
+export class WidgetZoom {
+  type: string;
+  bottom: string;
+  top: string;
+}
 export class WidgetDataset {
   id: string;
   source: any | any[];
@@ -317,7 +323,7 @@ export class WidgetGrid {
   left: string;
   top: string;
   right: string;
-  bottom: string;
+  bottom: string | number;
   width: string;
   height: string;
   containLabel: boolean;
@@ -439,9 +445,9 @@ export class WidgetAxis {
   }
   */
   triggerEvent: boolean;
-  axisLine: WidgetAxisLine;
+  axisLine: WidgetAxisLine = new WidgetAxisLine();
   axisTick: WidgetAxisTick;
-  axisLabel: WidgetAxisLabel;
+  axisLabel: WidgetAxisLabel = new WidgetAxisLabel();
   splitLine: WidgetSplitLine;
   splitArea: WidgetSplitArea;
   data: WidgetDataItem[];
@@ -488,7 +494,7 @@ export class WidgetAxisLine {
     the same offset.
   */
   symbolOffset: any[] | number;
-  lineStyle: WidgetLineStyle;
+  lineStyle: WidgetLineStyle = new WidgetLineStyle();
 }
 
 export class WidgetLineStyle {
@@ -525,7 +531,7 @@ export class WidgetAxisTick {
 
 export class WidgetAxisLabel {
   show: boolean;
-  interval: string;
+  interval: number | string;
   // Specifies whether the axis label faces Inside. False by default.
   inside: boolean;
   /*

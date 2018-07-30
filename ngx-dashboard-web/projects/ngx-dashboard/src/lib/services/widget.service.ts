@@ -168,27 +168,24 @@ export class WidgetService extends BaseApiService<Dashboard> {
     processData(widget: Widget): Observable<Widget> {
       const processedData = new ProcessedData();
       if (widget.dataSource) {
-        processedData.xAxis = this.getXAxis(widget.dataSource.data, widget.xAxis);
-        processedData.yAxis = this.getYAxis(widget.dataSource.data, widget.yAxis);
+        processedData.xAxis = this.getXAxis( widget.dataSource.data, widget.xAxis);
+        processedData.yAxis = this.getYAxis( widget.dataSource.data, widget.yAxis);
         processedData.yAxis = this.groupBy(processedData.yAxis, widget.yAxis, widget.groupBy);
-      // add call for method for building widget
         widget.data = processedData;
         widget.widgetOptions = this.setWidgetOption(widget, processedData);
       }
       // const widgetRecord = {...widget};
+      console.log('final widget');
+      console.log(widget);
       return of(widget);
     }
-    // TODO: Add Method for building the widget - Manipulate widget.WidgetOptions
-
     // extract from every record x-axis value
     getXAxis(data: any[], axisName: string) {
       if (data === undefined || data === null || axisName === undefined || axisName == null ) {
         return [];
       }
-      
       return data.map( record => record[axisName]);
     }
-
     // extract from every record, y-axis values
     getYAxis(data: any[], axisNames: string[]): any {
       const newY = [] ;
@@ -200,7 +197,6 @@ export class WidgetService extends BaseApiService<Dashboard> {
       }
       return newY ;
     }
-
     groupBy(dataForGrouping: any[], yAxis: any[], groupingField: string): any {
       // data series after grouping
       const newY = [];
@@ -237,26 +233,26 @@ export class WidgetService extends BaseApiService<Dashboard> {
     }
     setWidgetOption(widget: Widget, processData: ProcessedData): WidgetOptions {
       widget.widgetOptions.tooltip.trigger = 'item';                  // when hover on chart, data appear
-      if(widget.widgetType == 'pie') {
-        widget.widgetOptions.xAxis = new WidgetAxis();
-        widget.widgetOptions.yAxis = new WidgetAxis();
+      if (widget.widgetType === 'pie') {
+         widget.widgetOptions.xAxis = new WidgetAxis();
+         widget.widgetOptions.yAxis = new WidgetAxis();
       } else {
         widget.widgetOptions.xAxis.data = processData.xAxis;     // assign x-axis to echarts
         widget.widgetOptions.xAxis.type = 'category';
         widget.widgetOptions.yAxis.type = 'value';
       }
-      
+      //widget.widgetOptions.xAxis.axisLabel.rotate = 90 ;
       widget.widgetOptions.grid.containLabel = true;
       widget.widgetOptions.series = [];
       for (const axisName of widget.yAxis) {
         widget.widgetOptions.series.push({
-                  name: axisName , type: widget.widgetType , data: processData.yAxis[axisName]  // push every series with name, echart type and color
+                  name: axisName , type: widget.widgetType , data: processData.yAxis[axisName]
+                                                               // push every series with name, echart type and color
                 });
        }
+       console.log(widget.widgetOptions);
        return widget.widgetOptions;
     }
-
-
     getJson(obj: any) {
       const filtered = _.pick(obj, function (v) { return v !== '' && v !== null; });
       return _.cloneDeep(filtered, function (v) { return v !== filtered && _.isPlainObject(v) ? this.filter(v) : undefined; });

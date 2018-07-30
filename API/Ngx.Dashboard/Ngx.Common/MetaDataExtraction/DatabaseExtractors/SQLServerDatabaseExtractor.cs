@@ -199,9 +199,9 @@ namespace Ngx.Common.MetaDataExtraction.DatabaseExtractors
             view.Columns.Clear();
             foreach (DataRow row in views.Rows)
             {
-                var colExists = (from x in view.Columns where x.Name == row["name"].ToString() select x).FirstOrDefault();
-                if (colExists != null)
-                    continue;
+                //var colExists = (from x in view.Columns where x.Name == row["name"].ToString() select x).FirstOrDefault();
+                //if (colExists != null)
+                  //  continue;
                 Entities.MetaDataSchema.Column col = new Ngx.Common.Entities.MetaDataSchema.Column();
                 col.ParentView = view;
                 col.Name = row["name"].ToString();
